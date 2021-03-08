@@ -1,9 +1,13 @@
 <template>
   <div id="widget">
-    <input type="text" class="todo-input" placeholder="Insert task..."
-    v-model="taskInput" @keyup.enter="addTask">
+    <div>
+      <input type="text" class="todo-input" placeholder="Insert task..." v-model="taskInput" @keyup.enter="addTask">
+    </div>
     <div v-for="task in tasks" :key="task" class="task">
-        {{task.title}}
+      <p>{{task.title}}</p>
+      <div class="removeBtn" @click="removeTask(task.id)">
+        <div>&times;</div>
+      </div>
     </div>
   </div>
 </template>
@@ -15,27 +19,7 @@ export default {
   data () {
     return {
       taskInput: '',
-      tasks: [
-        {
-          'id': 1,
-          'title': 'task 1',
-          'done': false,
-        },
-        {
-          'id': 2,
-          'title': 'task 2',
-          'done': false,
-        },{
-          'id': 3,
-          'title': 'task 3',
-          'done': false,
-        },
-        {
-          'id': 4,
-          'title': 'task 4',
-          'done': false,
-        },
-      ]
+      tasks: []
     }
   },
   methods: {
@@ -54,7 +38,6 @@ export default {
         (async () => {
           const res = await fetch("http://localhost:8000/tasks", {
             method: 'POST',
-            mode: 'no-cors',
             cache: 'no-cache',
             credentials: 'same-origin',
             headers: {
@@ -62,9 +45,20 @@ export default {
             },
             body: JSON.stringify({title: this.taskInput})
           });
+          this.syncTasks();
         })();
         this.taskInput='';
-        this.syncTasks();
+      },
+      removeTask(id){
+        // if(this.taskInput.trim().length==0) return;
+        var requestOptions = {
+          method: 'DELETE',
+          redirect: 'follow',
+        };
+        (async () => {
+          const res = await fetch("http://localhost:8000/tasks/"+id, requestOptions)
+          this.syncTasks();
+        })();
       },
   },
   created: function(){this.syncTasks()}
@@ -79,15 +73,38 @@ export default {
         overflow-y: scroll;
         scrollbar-width: none;
     }
-    #widget *{
+    #widget > *{
         height:40px;
         border-bottom: 1px solid black;
-        
     }
     .task{
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
-        
+        padding-left: 8px;
+        transition: 0.3s;
+    }
+    
+    .task:hover{
+      background-color: rgb(81, 255, 0);
+    }
+    .todo-input{
+      height:20px !important;
+    }
+    .removeBtn{
+      flex-shrink: 0;
+      display: flex;
+      width: 40px;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+    }
+    .task > p{
+        width: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+    .removeBtn:hover{
+      background-color: rgb(255, 87, 87);
     }
 </style>
