@@ -3,9 +3,14 @@
     <div>
       <input type="text" class="todo-input" placeholder="Insert task..." v-model="taskInput" @keyup.enter="addTask">
     </div>
-    <div v-for="task in tasks" :key="task" :class="{'done' : task.done}" class="task">
-      <p v-if="task.done" @click="completeTask(task.id,false)">{{task.title}}</p>
-      <p v-else @click="completeTask(task.id,true)">{{task.title}}</p>
+    <div v-for="task in tasks" :key="task" class="task">
+      <p @click="completeTask(task.id,true)">{{task.title}}</p>
+      <div class="removeBtn" @click="removeTask(task.id)">
+        <div>&times;</div>
+      </div>
+    </div>
+    <div v-for="task in doneTasks" :key="task" class="task done">
+      <p @click="completeTask(task.id,false)">{{task.title}}</p>
       <div class="removeBtn" @click="removeTask(task.id)">
         <div>&times;</div>
       </div>
@@ -14,13 +19,14 @@
 </template>
 
 <script>
-/* eslint-disable */
+/* eslint-disablnpm run servee */
 export default {
   name: 'TodoWidget',
   data () {
     return {
       taskInput: '',
-      tasks: []
+      tasks: [],
+      doneTasks: []
     }
   },
   methods: {
@@ -29,7 +35,16 @@ export default {
             const res = await fetch("http://localhost:8000/tasks");
             res.json().then(
               data => {
-                  this.tasks=data.tasks
+                  let newTasks = [];
+                  let newDoneTasks = [];
+                  if(data.tasks != null){
+                    data.tasks.forEach(task=>{
+                      if(task.done) newDoneTasks.push(task);
+                      else newTasks.push(task);
+                    });
+                  }
+                  this.tasks = newTasks;
+                  this.doneTasks = newDoneTasks;
               }
             );
           })();
