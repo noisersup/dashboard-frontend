@@ -3,8 +3,9 @@
     <div>
       <input type="text" class="todo-input" placeholder="Insert task..." v-model="taskInput" @keyup.enter="addTask">
     </div>
-    <div v-for="task in tasks" :key="task" class="task">
-      <p>{{task.title}}</p>
+    <div v-for="task in tasks" :key="task" :class="{'done' : task.done}" class="task">
+      <p v-if="task.done" @click="completeTask(task.id,false)">{{task.title}}</p>
+      <p v-else @click="completeTask(task.id,true)">{{task.title}}</p>
       <div class="removeBtn" @click="removeTask(task.id)">
         <div>&times;</div>
       </div>
@@ -50,7 +51,6 @@ export default {
         this.taskInput='';
       },
       removeTask(id){
-        // if(this.taskInput.trim().length==0) return;
         var requestOptions = {
           method: 'DELETE',
           redirect: 'follow',
@@ -60,6 +60,20 @@ export default {
           this.syncTasks();
         })();
       },
+      completeTask(id,done){
+        var requestOptions = {
+          method: 'PATCH',
+          redirect: 'follow',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({"done": done})
+        };
+        (async () => {
+          const res = await fetch("http://localhost:8000/tasks/"+id, requestOptions)
+          this.syncTasks();
+        })();
+      }
   },
   created: function(){this.syncTasks()}
 }
@@ -103,6 +117,10 @@ export default {
         width: 100%;
         text-overflow: ellipsis;
         overflow: hidden;
+    }
+    .done{
+      background-color: gray;
+      
     }
     .removeBtn:hover{
       background-color: rgb(255, 87, 87);
