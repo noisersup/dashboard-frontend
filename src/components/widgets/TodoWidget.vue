@@ -19,7 +19,7 @@
 </template>
 
 <script>
-/* eslint-disablnpm run servee */
+/* eslint-disable */
 export default {
   name: 'TodoWidget',
   data () {
