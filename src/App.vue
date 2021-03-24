@@ -8,16 +8,18 @@
 /* eslint-disable */
 import EmptyWidget from './components/widgets/EmptyWidget'
 import TodoWidget from './components/widgets/TodoWidget'
+import PomodoroWidget from './components/widgets/PomodoroWidget'
 
 export default {
   name: 'App',
   components: {
     EmptyWidget,
-    TodoWidget
+    TodoWidget,
+    PomodoroWidget
   },
   data () {
     return {
-      widgets: ['EmptyWidget', 'TodoWidget', 'EmptyWidget', 'EmptyWidget']
+      widgets: ['PomodoroWidget', 'TodoWidget', 'EmptyWidget', 'EmptyWidget']
     }
   }
 }
