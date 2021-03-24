@@ -15,7 +15,7 @@ export default {
       return{
         minutes: 25,
         seconds: 0,
-        startTimestamp: 1616586344,
+        startTimestamp: 0,
       }
       
   },
@@ -26,11 +26,21 @@ export default {
 
         this.minutes = Math.floor(timeLeft/60);
         this.seconds = Math.floor(timeLeft%60);
+    },
+    syncTimestamp(){
+        (async () => {
+            const res = await fetch("http://localhost:8005/pomodoro");
+            res.json().then(
+                data => {
+                    this.startTimestamp = data.timestamp;
+                    this.sync();
+                }
+            )
+        })();
     }
   },
   mounted() {
-      this.startTimestamp = Math.floor(Date.now() /1000);
-      this.sync();
+      this.startTimestamp = this.syncTimestamp();
       setInterval( this.sync,1000);
   }
 
