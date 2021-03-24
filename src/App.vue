@@ -1,6 +1,6 @@
 <template>
   <div id='app' class='dashboard'>
-      <component class='widget' v-for='widget in widgets' v-bind:key='widget' v-bind:is=widget></component>
+      <component class='widget' :class="{'vPanoramic' : widget.size == 1, 'hPanoramic' : widget.size == 2,'big' : widget.size == 3,'giant' : widget.size == 4}" v-for='widget in widgets' v-bind:key='widget' v-bind:is=widget.name></component>
   </div>
 </template>
 
@@ -19,7 +19,11 @@ export default {
   },
   data () {
     return {
-      widgets: ['PomodoroWidget', 'TodoWidget', 'EmptyWidget', 'EmptyWidget']
+      widgets: [
+      {name:'PomodoroWidget', size:0}, 
+      {name:'TodoWidget', size:1},
+      {name:'EmptyWidget', size:1}, 
+      {name:'EmptyWidget', size:0}]
     }
   }
 }
@@ -35,7 +39,7 @@ export default {
 }
 .dashboard{
     display: grid;
-    grid-template-columns: 200px 200px 200px;
+    grid-template-columns: 200px 200px 200px 200px;
     grid-template-rows: 200px 200px 200px 200px 200px;
     grid-gap: 10px;
 }
@@ -44,5 +48,25 @@ export default {
     background-color: yellow;
     border-radius: 15px;
     border: 0;
+}
+.hPanoramic{
+    grid-row-start: auto;
+    grid-row-end: span 2;
+}
+.vPanoramic{
+    grid-column-start: auto;
+    grid-column-end: span 2;
+}
+.big{
+    grid-column-start: auto;
+    grid-column-end: span 2;
+    grid-row-start: auto;
+    grid-row-end: span 2;
+}
+.giant{
+  grid-column-start: auto;
+  grid-column-end: span 3;
+  grid-row-start: auto;
+  grid-row-end: span 2;
 }
 </style>
