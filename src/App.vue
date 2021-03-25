@@ -23,6 +23,18 @@ export default {
       {name:'PomodoroWidget', size:0}, 
       {name:'TodoWidget', size:1},
       {name:'EmptyWidget', size:1}, 
+      {name:'EmptyWidget', size:0}, 
+      {name:'EmptyWidget', size:0}, 
+      {name:'EmptyWidget', size:0}, 
+      {name:'EmptyWidget', size:0}, 
+      {name:'EmptyWidget', size:0}, 
+      {name:'EmptyWidget', size:0}, 
+      {name:'EmptyWidget', size:0}, 
+      {name:'EmptyWidget', size:0}, 
+      {name:'EmptyWidget', size:0}, 
+      {name:'EmptyWidget', size:0}, 
+      {name:'EmptyWidget', size:0}, 
+      {name:'EmptyWidget', size:0},  
       {name:'EmptyWidget', size:0}]
     }
   }
@@ -39,8 +51,8 @@ export default {
 }
 .dashboard{
     display: grid;
-    grid-template-columns: 200px 200px 200px 200px;
-    grid-template-rows: 200px 200px 200px 200px 200px;
+    grid-template-columns: repeat(auto-fill,minmax(200px,200px));
+    grid-auto-rows: 200px;
     grid-gap: 10px;
 }
 .widget{
