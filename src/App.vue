@@ -9,20 +9,22 @@
 import EmptyWidget from './components/widgets/EmptyWidget'
 import TodoWidget from './components/widgets/TodoWidget'
 import PomodoroWidget from './components/widgets/PomodoroWidget'
+import CalendarWidget from './components/widgets/CalendarWidget'
 
 export default {
   name: 'App',
   components: {
     EmptyWidget,
     TodoWidget,
-    PomodoroWidget
+    PomodoroWidget,
+    CalendarWidget
   },
   data () {
     return {
       widgets: [
       {name:'PomodoroWidget', size:0}, 
       {name:'TodoWidget', size:1},
-      {name:'EmptyWidget', size:1}, 
+      {name:'CalendarWidget', size:4}, 
       {name:'EmptyWidget', size:0}, 
       {name:'EmptyWidget', size:0}, 
       {name:'EmptyWidget', size:0}, 
