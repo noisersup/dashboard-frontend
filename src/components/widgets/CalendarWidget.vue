@@ -1,6 +1,9 @@
 <template>
 <div id="widget">
-<vc-calendar class="calendar" is-expanded :first-day-of-week="2" :masks="masks"></vc-calendar>
+<vc-calendar class="calendar" is-expanded 
+  :first-day-of-week="2" 
+  :masks="masks"
+  :attributes='attributes'></vc-calendar>
 </div>
 </template>
 
@@ -20,6 +23,11 @@ export default {
   name: 'CalendarWidget',
   data(){
     return{
+      attributes: [{
+        key: 'today',
+        highlight: true,
+        dates: new Date(),
+      }],
       masks: {
         weekdays: 'WWW',
       }
