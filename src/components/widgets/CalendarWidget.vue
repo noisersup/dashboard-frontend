@@ -46,4 +46,14 @@ export default {
     border: solid #000000;
     border-width: 0px 1px 1px 0px;
   }
+  .calendar /deep/ .vc-weeks > .vc-grid-cell-col--7{
+    border-left: 1px solid;
+  }
+
+  .calendar /deep/ .vc-w-full, 
+  .calendar /deep/ .vc-grid-cell, 
+  .calendar /deep/ .vc-grid-container, 
+  .calendar /deep/ .vc-pane {
+    height: 100%;
+  }
 </style>
