@@ -1,8 +1,13 @@
 <template>
 <div id="widget">
-    <div class="clock">
+    <div v-if="startTimestamp != 0 && (minutes >= 0 || seconds >= 1)" class="clock">
         <p class="minutes">{{minutes}}</p>
         <p class="seconds">{{seconds}}</p>
+    </div>
+    <div v-else>
+        <div @click="start" class="startCircle">
+            <div class="startBtn"></div>
+        </div>
     </div>
 </div>
 </template>
@@ -13,19 +18,21 @@ export default {
   name: 'PomodoroWidget',
   data () {
       return{
-        minutes: 25,
+        minutes: 0,
         seconds: 0,
-        startTimestamp: 0,
+        startTimestamp: 1617383504,
       }
       
   },
   methods: {
     sync(){
-        let curr = Math.floor(Date.now() /1000);
-        let timeLeft = 25*60 + (this.startTimestamp - curr);
+        if(this.startTimestamp != 0){
+            let curr = Math.floor(Date.now() /1000);
+            let timeLeft = 25*60 + (this.startTimestamp - curr);
 
-        this.minutes = Math.floor(timeLeft/60);
-        this.seconds = Math.floor(timeLeft%60);
+            this.minutes = Math.floor(timeLeft/60);
+            this.seconds = Math.floor(timeLeft%60);
+        }
     },
     syncTimestamp(){
         (async () => {
@@ -37,13 +44,17 @@ export default {
                 }
             )
         })();
-    }
+    },
+    start(){
+        console.log("click!");
+    },
   },
+  
   mounted() {
-      this.startTimestamp = this.syncTimestamp();
-      setInterval( this.sync,1000);
+    this.startTimestamp = this.syncTimestamp();
+    this.sync()
+    setInterval( this.sync,1000);
   }
-
 }
 </script>
 
@@ -70,5 +81,26 @@ p{
 .seconds{
     display: inline;
     font-size: 30px;
+}
+
+.startBtn{
+    width: 74px;
+    height: 74px;
+    border-style: solid;
+    box-sizing: border-box;
+    border-width: 37px;
+    border-color: white;
+    border-width: 37px 0px 37px 74px;
+    border-color: transparent transparent transparent white;
+
+    transform: translateX(7px);
+}
+.startCircle{
+    padding: 30px;
+    border-radius: 100%;
+    border-style: solid;
+    border-width: 5px;
+    border-color: white;
+
 }
 </style>
