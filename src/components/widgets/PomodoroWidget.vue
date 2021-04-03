@@ -45,8 +45,22 @@ export default {
             )
         })();
     },
+    genTimestamp(){
+        this.startTimestamp = Math.floor(Date.now().toString()/1000);
+    },
     start(){
-        console.log("click!");
+        this.genTimestamp();
+        (async () => {
+          const res = await fetch("http://localhost:8005/pomodoro", {
+            method: 'POST',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({timestamp: this.startTimestamp})
+          });
+        })();
     },
   },
   
