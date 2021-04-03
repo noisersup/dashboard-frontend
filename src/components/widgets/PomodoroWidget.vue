@@ -1,6 +1,11 @@
 <template>
 <div id="widget">
-    <div v-if="startTimestamp != 0 && (minutes >= 0 || seconds >= 1)" class="clock">
+    <div @click="resume" v-if="stopped">
+        <div>
+        <div class="pauseBtn"></div>
+        </div>
+    </div>
+    <div @click="stop" v-else-if="startTimestamp != 0 && (minutes >= 0 || seconds >= 1)" class="clock">
         <p class="minutes">{{minutes}}</p>
         <p class="seconds">{{seconds}}</p>
     </div>
@@ -21,6 +26,8 @@ export default {
         minutes: 0,
         seconds: 0,
         startTimestamp: 0,
+        timeLeft: 0,
+        stopped: false,
       }
       
   },
@@ -28,7 +35,7 @@ export default {
     sync(){
         if(this.startTimestamp != 0){
             let curr = Math.floor(Date.now() /1000);
-            let timeLeft = 25*60 + (this.startTimestamp - curr);
+            let timeLeft = this.timeLeft + (this.startTimestamp - curr);
 
             this.minutes = Math.floor(timeLeft/60);
             this.seconds = Math.floor(timeLeft%60);
@@ -40,6 +47,7 @@ export default {
             res.json().then(
                 data => {
                     this.startTimestamp = data.timestamp;
+                    this.timeLeft = data.timeLeft;
                     this.sync();
                 }
             )
@@ -47,6 +55,7 @@ export default {
     },
     genTimestamp(){
         this.startTimestamp = Math.floor(Date.now().toString()/1000);
+        this.timeLeft = 25*60;
     },
     start(){
         this.genTimestamp();
@@ -58,10 +67,18 @@ export default {
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({timestamp: this.startTimestamp})
+            body: JSON.stringify({timestamp: this.startTimestamp,timeLeft: this.timeLeft})
           });
         })();
     },
+    stop(){
+        this.timeLeft = this.timeLeft - (Math.floor(Date.now() /1000) - this.startTimestamp); 
+        this.stopped=true;
+    },
+    resume(){
+        this.startTimestamp = Math.floor(Date.now() /1000);
+        this.stopped=false;
+    }
   },
   
   mounted() {
@@ -109,6 +126,14 @@ p{
 
     transform: translateX(7px);
 }
+
+.pauseBtn{
+    width: 20px;
+    height: 74px;
+    border-right: 15px solid white;
+    border-left: 15px solid white;
+}
+
 .startCircle{
     padding: 30px;
     border-radius: 100%;
