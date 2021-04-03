@@ -20,7 +20,7 @@ export default {
       return{
         minutes: 0,
         seconds: 0,
-        startTimestamp: 1617383504,
+        startTimestamp: 0,
       }
       
   },
