@@ -29,7 +29,7 @@ export default {
     },
     syncTimestamp(){
         (async () => {
-            const res = await fetch("http://localhost:8005/pomodoro");
+            const res = await fetch("http://dashboard.com/api/pomodoro/pomodoro");
             res.json().then(
                 data => {
                     this.startTimestamp = data.timestamp;
