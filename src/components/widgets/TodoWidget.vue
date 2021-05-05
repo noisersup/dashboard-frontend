@@ -32,7 +32,7 @@ export default {
   methods: {
       syncTasks(){
           (async () => {
-            const res = await fetch("http://localhost:8000/tasks");
+            const res = await fetch("http://dashboard.com/api/todo/tasks");
             res.json().then(
               data => {
                   let newTasks = [];
@@ -52,7 +52,7 @@ export default {
       addTask(){
         if(this.taskInput.trim().length==0) return;
         (async () => {
-          const res = await fetch("http://localhost:8000/tasks", {
+          const res = await fetch("http://dashboard.com/api/todo/tasks", {
             method: 'POST',
             cache: 'no-cache',
             credentials: 'same-origin',
@@ -71,7 +71,7 @@ export default {
           redirect: 'follow',
         };
         (async () => {
-          const res = await fetch("http://localhost:8000/tasks/"+id, requestOptions)
+          const res = await fetch("http://dashboard.com/api/todo/tasks/"+id+"/", requestOptions)
           this.syncTasks();
         })();
       },
@@ -85,7 +85,7 @@ export default {
           body: JSON.stringify({"done": done})
         };
         (async () => {
-          const res = await fetch("http://localhost:8000/tasks/"+id, requestOptions)
+          const res = await fetch("http://dashboard.com/api/todo/tasks/"+id+"/", requestOptions)
           this.syncTasks();
         })();
       }
