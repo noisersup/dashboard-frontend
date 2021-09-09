@@ -10,6 +10,7 @@ import EmptyWidget from './components/widgets/EmptyWidget'
 import TodoWidget from './components/widgets/TodoWidget'
 import PomodoroWidget from './components/widgets/PomodoroWidget'
 import CalendarWidget from './components/widgets/CalendarWidget'
+import FinanceWidget from './components/widgets/FinanceWidget'
 
 export default {
   name: 'App',
@@ -17,7 +18,8 @@ export default {
     EmptyWidget,
     TodoWidget,
     PomodoroWidget,
-    CalendarWidget
+    CalendarWidget,
+    FinanceWidget
   },
   data () {
     return {
@@ -25,8 +27,7 @@ export default {
       {name:'PomodoroWidget', size:3}, 
       {name:'TodoWidget', size:6},
       {name:'CalendarWidget', size:5}, 
-      {name:'EmptyWidget', size:0}, 
-      {name:'EmptyWidget', size:0}, 
+      {name:'FinanceWidget', size:3}, 
       {name:'EmptyWidget', size:0}, 
       {name:'EmptyWidget', size:0}, 
       {name:'EmptyWidget', size:0}, 
