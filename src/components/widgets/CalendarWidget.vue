@@ -23,11 +23,20 @@ export default {
   name: 'CalendarWidget',
   data(){
     return{
-      attributes: [{
+      attributes: [
+      {
         key: 'today',
         highlight: true,
         dates: new Date(),
-      }],
+      },
+          {
+            key: 'ny',
+            highlight: true,
+            //dot: true,
+            bar: true,
+            //content: 'red',
+            dates: new Date(1631491200),
+          },],
       masks: {
         weekdays: 'WWW',
       }
