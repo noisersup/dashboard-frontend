@@ -25,8 +25,8 @@ export default {
   data () {
     return {
       taskInput: '',
-      tasks: [],
-      doneTasks: []
+      tasks: ["","","",""],
+      doneTasks: [""]
     }
   },
   methods: {

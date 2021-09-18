@@ -1,6 +1,6 @@
 <template>
   <div id='app' class='dashboard'>
-      <component class='widget' :class="{'vPanoramic' : widget.size == 1, 'hPanoramic' : widget.size == 2,'big' : widget.size == 3,'bigger' : widget.size == 4,'giant' : widget.size == 5,'ghPanoramic' : widget.size == 6}" v-for='widget in widgets' v-bind:key='widget' v-bind:is=widget.name></component>
+      <component class='widget' :class="{'vPanoramic' : widget.size == 1, 'hPanoramic' : widget.size == 2,'big' : widget.size == 3,'bigger' : widget.size == 4,'giant' : widget.size == 5,'ghPanoramic' : widget.size == 6,'baguette' : widget.size == 7}" v-for='widget in widgets' v-bind:key='widget' v-bind:is=widget.name></component>
   </div>
 </template>
 
@@ -10,6 +10,7 @@ import EmptyWidget from './components/widgets/EmptyWidget'
 import TodoWidget from './components/widgets/TodoWidget'
 import PomodoroWidget from './components/widgets/PomodoroWidget'
 import CalendarWidget from './components/widgets/CalendarWidget'
+import MotivationalWidget from './components/widgets/MotivationalWidget'
 
 export default {
   name: 'App',
@@ -17,7 +18,8 @@ export default {
     EmptyWidget,
     TodoWidget,
     PomodoroWidget,
-    CalendarWidget
+    CalendarWidget,
+    MotivationalWidget
   },
   data () {
     return {
@@ -29,10 +31,7 @@ export default {
       {name:'EmptyWidget', size:0}, 
       {name:'EmptyWidget', size:0}, 
       {name:'EmptyWidget', size:0}, 
-      {name:'EmptyWidget', size:0}, 
-      {name:'EmptyWidget', size:0}, 
-      {name:'EmptyWidget', size:0},  
-      {name:'EmptyWidget', size:0}]
+      {name:'MotivationalWidget', size:7}]
     }
   }
 }
@@ -89,5 +88,9 @@ export default {
   grid-column-end: span 2;
   grid-row-start: auto;
   grid-row-end: span 4;
+}
+.baguette{
+    grid-row-start: auto;
+    grid-column-end: span 4;
 }
 </style>
