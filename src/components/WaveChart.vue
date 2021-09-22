@@ -1,4 +1,5 @@
 <template>
+    <div style="position: relative">
 <div class="chart">
     <div class="fill">
     <svg  version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="300px" height="300px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -8,24 +9,43 @@
     </svg>
     </div>
 </div>
+<div class="percentage"><p>{{percentage}}%</p></div>
+    </div>
 </template>
 
 <script>
 /* eslint-disable */
 export default {
-  name: 'WaveChart'
+  name: 'WaveChart',
+  props: ['percentage'],
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.percentage{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    height:100%;
+    width:100%;
+    top:0;
+    left:0;
+    font-size: 50px;
+    color: rgba(255, 255, 255, 0.68);
+}
+.percentage p {
+    margin: 0;
+    padding: 0;
+}
+
 .chart{
     background: #000;
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    overflow:hidden;
-    transform: translate3d(0, 0, 0);
+    overflow: hidden;
 }
 .chart .fill{
     animation-name: fillAnim;
@@ -48,6 +68,11 @@ export default {
         transform: translate(0,150px);
     }
     100% {
+        /*TODO:
+0%      150 - 0 * 1.55 = 150
+50%     150 - 50 * 1.55 = 72.5
+100%    150 - 100 * 1.55 = -5
+         */
         transform: translate(0,-5px);
     }
 }
