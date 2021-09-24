@@ -2,7 +2,15 @@
 <div class="content">
 <div class="groups">
   <div v-for="group in groups" :key="group">
-    <WaveChart :percentage='99'/>
+    <WaveChart :percentage='59'/>
+    <Popup :x="100" :y="100" theme="linear-gradient(167deg, rgba(212,255,255,1) 0%, rgba(0,249,255,1) 100%)">
+        <h2>new expense</h2>
+        <Input class="input" label='Expense title' color="lightblue"/>
+        <div class="bottom">
+            <Input class="input limit" type="number" label='Limit' color="lightblue"/>
+            <button class="btn">Add</button>
+        </div>
+    </Popup>
   </div>
   <div class="addGroup unselectable" @click='addGroup("name",100)'>+</div>
 </div>
@@ -12,11 +20,15 @@
 <script>
 /* eslint-disable */
 import WaveChart from '../WaveChart'
+import Popup from '../Popup'
+import Input from '../Input'
 
 export default {
   name: 'FinanceWidget',
   components: {
     WaveChart,
+    Popup,
+    Input,
   },
   data () {
     return {
@@ -112,4 +124,38 @@ background: linear-gradient(135deg, rgba(214,255,247,1) 0%, rgba(102,227,255,1) 
     align-items: center;
     justify-content: center;
 }
+
+.popup h2{
+    margin: 5px;
+}
+.input{
+  border-radius: 20px;
+}
+.bottom {
+    display: flex;
+}
+.limit{
+    width:60%;
+}
+.btn{
+    flex-grow:1;
+    color:black;
+    font-size: 20px;
+
+    border:0;
+    border-radius: 20px;
+ background: rgb(212,255,255);
+background: linear-gradient(167deg, rgba(212,255,255,1) 0%, rgba(0,249,255,1) 100%); 
+
+}
+.btn:hover{
+    cursor: pointer;
+    box-shadow: 0px 0px 10px black;
+    transition-duration: 0.4s;
+}
+.btn:active{
+    filter: invert(0.30);
+}
+
 </style>
+
