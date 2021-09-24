@@ -1,5 +1,5 @@
 <template>
-    <div style="position: relative">
+<div :style="cssProps" style="position: relative">
 <div class="chart">
     <div class="fill">
     <svg  version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="300px" height="300px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -18,6 +18,13 @@
 export default {
   name: 'WaveChart',
   props: ['percentage'],
+  computed: {
+    cssProps() {
+      return {
+          '--water-height': (this.percentage>100) ? -5 + "px": 150 - this.percentage * 1.55 + "px" ,
+      }
+    }
+  }
 }
 </script>
 
@@ -73,7 +80,7 @@ export default {
 50%     150 - 50 * 1.55 = 72.5
 100%    150 - 100 * 1.55 = -5
          */
-        transform: translate(0,-5px);
+        transform: translate(0,var(--water-height));
     }
 }
 @keyframes waveAnim {

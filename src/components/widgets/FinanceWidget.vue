@@ -2,7 +2,7 @@
 <div class="content">
 <div class="groups">
   <div v-for="group in groups" :key="group">
-    <WaveChart :percentage='59'/>
+    <WaveChart :percentage='99'/>
   </div>
   <div class="addGroup unselectable" @click='addGroup("name",100)'>+</div>
 </div>
