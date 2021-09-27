@@ -14,8 +14,10 @@
 </template>
 
 <script>
+import App from '../App.vue'
 /* eslint-disable */
 export default {
+  components: { App },
   name: 'WaveChart',
   props: ['percentage'],
   computed: {
