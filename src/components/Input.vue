@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper" :style="cssProps">
     <div class="input-data">
-      <input :type="type" required />
+      <input :type="type" v-model="value" required />
       <div class="underline"></div>
       <label>{{ label }}</label>
     </div>
@@ -29,6 +29,11 @@ export default {
       default: "text",
       type: Text,
     },
+  },
+  data() {
+    return {
+      value: "",
+    };
   },
   computed: {
     cssProps() {

@@ -32,6 +32,16 @@ export default {
       };
     },
   },
+  mounted() {
+      this.$el.style.display = "none";
+    this.x = this.$parent.$el.offsetLeft + this.$parent.$el.scrollWidth + 10;
+    this.y = this.$parent.$el.offsetTop;
+  },
+  methods: {
+    show: function () {
+      this.$el.style.display = "block";
+    },
+  },
 };
 </script>
 

@@ -4,24 +4,31 @@
       <div v-for="group in groups" :key="group">
         <WaveChart :percentage="59" />
         <Popup
+          ref="popup"
           :x="100"
           :y="100"
           theme="linear-gradient(167deg, rgba(212,255,255,1) 0%, rgba(0,249,255,1) 100%)"
         >
-          <h2>new expense</h2>
-          <Input class="input" label="Expense title" color="lightblue" />
+          <h2>new group</h2>
+          <Input
+            class="input"
+            label="Group title"
+            ref="groupInp"
+            color="lightblue"
+          />
           <div class="bottom">
             <Input
               class="input limit"
               type="number"
               label="Limit"
+              ref="maxInp"
               color="lightblue"
             />
-            <button class="btn">Add</button>
+            <button class="btn" @click="addGroupClick()">Add</button>
           </div>
         </Popup>
       </div>
-      <div class="addGroup unselectable" @click="addGroup('name', 100)">+</div>
+      <div class="addGroup unselectable" @click="$refs.popup[0].show()">+</div>
     </div>
   </div>
 </template>
@@ -63,6 +70,21 @@ export default {
           }
         });
       })();
+    },
+    addGroupClick: function () {
+      let name = this.$refs.groupInp[0].value;
+      if (name.length < 0 && name.length > 50) {
+        //TODO: error
+        return;
+      }
+
+      let max = this.$refs.maxInp[0].value;
+      if (max < 0 && max > 2147483647) {
+        //TODO: error
+        return;
+      }
+
+      this.addGroup(name, max);
     },
     addGroup: function (name, maxExpenses) {
       let group = {
@@ -125,7 +147,7 @@ export default {
   align-content: center;
 }
 .addGroup {
-  background-color: grey;
+  border-style: dashed;
   width: 150px;
   height: 150px;
   border-radius: 50%;
